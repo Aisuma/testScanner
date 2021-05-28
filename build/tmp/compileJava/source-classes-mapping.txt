@@ -1,0 +1,4 @@
+me/aisuma/testScanner/testMain.java
+ me.aisuma.testScanner.testMain
+me/aisuma/testScanner/Main.java
+ me.aisuma.testScanner.Main
