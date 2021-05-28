@@ -1,29 +1,36 @@
 package me.aisuma.testScanner;
 
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import org.simpleyaml.configuration.file.YamlConfiguration;
 import org.simpleyaml.configuration.file.YamlFile;
 
+import javax.security.auth.login.LoginException;
 import java.io.File;
 
 public class testMain {
 
-    public void testSerialization() {
-        YamlFile yamlFile = new YamlFile("test.yml");
+    public void testBotJoinWithConfig() {
+        final YamlFile yamlFile = new YamlFile("test.yml");
         try {
-            if (!yamlFile.exists()) {
-                System.out.println("Configuration created at: " + yamlFile.getFilePath());
-                yamlFile.createNewFile(true);
-            } else {
-                System.out.println(yamlFile.getFilePath() + " already in existence, loading.");
-            }
             yamlFile.load();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        yamlFile.addDefault("settings", null);
+        String token = (String) yamlFile.get("settings.token");
         try {
-            yamlFile.save();
-        } catch (Exception ex) {
+            JDA jda = JDABuilder.createDefault(token)
+                    .enableIntents(GatewayIntent.GUILD_PRESENCES) //Allows in depth data retrieval
+                    .enableCache(CacheFlag.ACTIVITY) //Enables member.getActivities(); using ^
+                    .setActivity(Activity.playing("Indev 0.1"))
+                    .setStatus(OnlineStatus.DO_NOT_DISTURB)
+                    .build();
+        }
+        catch (LoginException ex) {
             ex.printStackTrace();
         }
     }

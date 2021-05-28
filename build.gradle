@@ -8,6 +8,7 @@ version '1.0-SNAPSHOT'
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
+    maven { url 'https://m2.dv8tion.net/releases' }
 
 }
 
@@ -15,6 +16,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     implementation 'me.carleslc.Simple-YAML:Simple-Yaml:1.7.2'
+    compile 'net.dv8tion:JDA:4.2.1_265'
 
 }
 

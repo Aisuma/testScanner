@@ -32,18 +32,20 @@ public class Main {
 
         System.out.println("value of boobs: " + yamlFile.getBoolean("settings.boobs"));
         System.out.println("token? : " + yamlFile.get("settings.token"));
-
-        Scanner input = new Scanner(System.in);
-        System.out.println("enter token plz");
-        String token = input.nextLine();
-        input.close();
-        yamlFile.set("settings.token", token);
-        System.out.println("set token to: " + token);
+        if (yamlFile.get("settings.token") == null) {
+            Scanner input = new Scanner(System.in);
+            System.out.println("enter token plz");
+            String token = input.nextLine();
+            input.close();
+            yamlFile.set("settings.token", token);
+            System.out.println("set token to: " + token);
+        }
         try {
             yamlFile.save();
         } catch (final IOException e) {
             e.printStackTrace();
         }
+        new testMain().testBotJoinWithConfig();
     }
 
 }
